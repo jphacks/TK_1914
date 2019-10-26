@@ -1,7 +1,6 @@
 <template lang="pug">
     div.Contaienr
         image-uploader
-
 </template>
 
 <script>
