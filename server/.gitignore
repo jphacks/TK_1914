@@ -1,0 +1,6 @@
+.env
+.env.heroku
+/db/development.db
+.solargraph.yml
+/tmp
+/vendor/bundle

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="index.css">
+  <title>Document</title>
+</head>
+<body>
+  <%= @user.qr %>
+  <form class="idea-form" action="/users/new" method="post" enctype='multipart/form-data'>
+    <label class="-mb-sm" for="name">name</label>
+    <input type="text" name="name" id="name" placeholder="ほげ太郎">
+    <label class="-mb-sm" for="description">ニックネーム(任意)</label>
+    <input type="text" name="name" id="name" placeholder="ほげほげ">
+    <input type="file" name="file">
+    <input type="submit" value="ideaを投稿する">
+  </form>
+</body>
+</html>
