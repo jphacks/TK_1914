@@ -1,14 +1,15 @@
 <template lang="pug">
-    div becky
+    div.test becky
+        div.test_hoge hoge
+
+
 </template>
 
 <script>
 export default {
-  components: {
-  }
 }
 </script>
 
-<style>
+<style lang="scss">
 </style>
 

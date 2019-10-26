@@ -13,8 +13,15 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
+    "@nuxtjs/style-resources": "^1.0.0",
     "element-ui": "^2.12.0",
-    "nuxt": "^2.0.0"
+    "node-sass": "^4.13.0",
+    "nuxt": "^2.0.0",
+    "pug": "^2.0.4",
+    "pug-plain-loader": "^1.0.0",
+    "sass-loader": "^8.0.0",
+    "scss-loader": "^0.0.1",
+    "style-loader": "^1.0.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
