@@ -3,11 +3,11 @@
         div.Profile_InfoContainer
             div.Profile_UserIcon
                 img(v-if="userInfo.img.length > 0" :src="userInfo.img")
-                el-avatar(v-else src="/ui/man.svg" :size="130")
+                el-avatar(v-else src="/icon/man.svg" :size="130")
             div.Profile_UserName {{userInfo.name}}
             div.Profile_MediaList
                 div(v-for="media in ['twitter', 'instagram', 'facebook']" class="Profile_MediaItem")
-                    img(:src="`/ui/icons/${media}.svg`" width="40px" hegiht="40px")
+                    img(:src="`/icon/media/${media}_black.svg`" width="40px" hegiht="40px")
             div.Profile_Comment
                 span {{userInfo.comment}}
 </template>
@@ -33,7 +33,7 @@ export default {
         width: 100%;
         height: 100vh;
         padding: 25px;
-        background-image: url('/ui/card_bg.svg');
+        background-image: url('/icon/card_bg.svg');
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center;

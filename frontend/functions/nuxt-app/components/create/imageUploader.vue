@@ -7,7 +7,7 @@
             :on-success="handleAvatarSuccess"
             :before-upload="beforeAvatarUpload")
             img(v-if="imageUrl" :src="imageUrl" class="ImageUploader_Avater")
-            i(v-else class="el-icon-plus ImageUploader_BoxIcon")
+            div(v-else class="ImageUploader_BoxIcon")
 </template>
 
 <script>
@@ -54,8 +54,15 @@ export default {
         color: #8c939d;
         width: 178px;
         height: 178px;
-        line-height: 178px;
         text-align: center;
+        &::after {
+            content: url('/icon/user.svg');
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
     }
     &_Avater {
         width: 178px;
