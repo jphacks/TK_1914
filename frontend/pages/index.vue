@@ -1,15 +1,19 @@
 <template lang="pug">
-    div.test becky
-        div.test_hoge hoge
-
+    div.Contaienr
+        image-uploader
 
 </template>
 
 <script>
+
+import imageUploader from '~/components/create/imageUploader'
 export default {
+    components: {
+        imageUploader
+    }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 </style>
 
