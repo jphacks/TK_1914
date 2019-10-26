@@ -24,6 +24,7 @@ module.exports = {
     /*
     ** Run ESLint on save
     */
+    vendor: ['element-ui'],
     extend (config, { isDev, isClient }) {
       if (isDev && isClient) {
         config.module.rules.push({
@@ -34,6 +35,12 @@ module.exports = {
         })
       }
     }
-  }
+  },
+  plugins: [
+    '~plugins/element-ui'
+  ],
+  css: [
+      'element-ui/lib/theme-chalk/index.css'
+  ]
 }
 
