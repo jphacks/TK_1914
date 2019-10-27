@@ -5,7 +5,7 @@
             div.CreateCard_InputParts
                 div.CreateCard_Label Profile image
                 div.CreateCard_InputContainer._isBox
-                    image-uploader()
+                    image-uploader(v-model="userInfo.image")
             div.CreateCard_InputParts
                 div.CreateCard_Label
                     span.CreateCard_LabelText Nickname
@@ -31,6 +31,7 @@
                                 type="text"
                                 placeholder="username"
                                 :ref="media.name"
+                                v-model="userInfo.media[media.name]"
                                 :disabled="!isActive[media.name]"
                                 @blur="disabledMediaCard(media.name)")
         div.CreateCard_ButtonContaienr
@@ -47,7 +48,11 @@ export default {
                 image: '',
                 name: '',
                 comment: '',
-                media: []
+                media: {
+                    twitter: '',
+                    facebook: '',
+                    instagram: '',
+                }
             },
             isActive: {
                 twitter: false,
@@ -57,15 +62,18 @@ export default {
             mediaList: [
                 {
                     name: 'twitter',
-                    label: '@'
-                },
-                {
-                    name: 'facebook',
-                    label: 'facebook.com/'
+                    label: 'twitter.com/',
+                    id: 1
                 },
                 {
                     name: 'instagram',
-                    label: 'instagram.com/'
+                    label: 'instagram.com/',
+                    id: 2
+                },
+                {
+                    name: 'facebook',
+                    label: 'facebook.com/',
+                    id: 3
                 },
             ]
         }
@@ -74,8 +82,25 @@ export default {
         imageUploader
     },
     methods: {
-        creaetCard() {
-
+        async creaetCard() {
+            var links = this.mediaList.filter((media) => {
+                return this.userInfo.media[media.name].length > 0
+            })
+            const param_links = links.map(link => {
+                return {
+                    id: link.id,
+                    url: 'https://' + link.label + this.userInfo.media[link.name]
+                }
+            })
+            const url = 'https://becky-server.herokuapp.com/api/v1/users/new'
+            await this.$axios.$post(url, {
+                'name': this.userInfo.name,
+                'img': this.userInfo.image,
+                'comment': this.userInfo.comment,
+                'links': param_links
+            }).then(res => {
+                window.location.href = '/share'
+            })
         },
         activeMediaCard(type) {
             this.isActive[type] = true
