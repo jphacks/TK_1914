@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 
 import imageUploader from '~/components/create/imageUploader'
 export default {
@@ -82,6 +83,7 @@ export default {
         imageUploader
     },
     methods: {
+        ...mapActions('user', ['setUserId']),
         async creaetCard() {
             var links = this.mediaList.filter((media) => {
                 return this.userInfo.media[media.name].length > 0
@@ -99,7 +101,8 @@ export default {
                 'comment': this.userInfo.comment,
                 'links': param_links
             }).then(res => {
-                window.location.href = '/share'
+                this.setUserId(res.id)
+                this.$router.push('/share')
             })
         },
         activeMediaCard(type) {
