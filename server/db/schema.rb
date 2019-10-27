@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_26_154416) do
+ActiveRecord::Schema.define(version: 2019_10_27_001540) do
 
   create_table "links", force: :cascade do |t|
     t.integer "user_id"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 2019_10_26_154416) do
     t.string "nick_name"
     t.string "img"
     t.string "qr"
+    t.string "comment"
   end
 
 end

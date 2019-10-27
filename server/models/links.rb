@@ -4,5 +4,5 @@ Bundler.require
 
 class Link < ActiveRecord::Base
   belongs_to :user
-  belongs_to :media_platforms
+  belongs_to :media_platform
 end
