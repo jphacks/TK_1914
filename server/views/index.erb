@@ -8,12 +8,13 @@
   <title>Document</title>
 </head>
 <body>
-  <%= @user.qr %>
-  <form class="idea-form" action="/users/new" method="post" enctype='multipart/form-data'>
-    <label class="-mb-sm" for="name">name</label>
+  <form class="idea-form" action="/api/v1/users/new" method="post" enctype='multipart/form-data'>
+    <label for="name">name</label>
     <input type="text" name="name" id="name" placeholder="ほげ太郎">
-    <label class="-mb-sm" for="description">ニックネーム(任意)</label>
-    <input type="text" name="name" id="name" placeholder="ほげほげ">
+    <label for="nickname">ニックネーム(任意)</label>
+    <input type="text" name="nickname" id="nickname" placeholder="ほげほげ">
+    <label for="comment">Comment</label>
+    <input type="text" name="comment" id="comment" placeholder="こめんと">
     <input type="file" name="file">
     <input type="submit" value="ideaを投稿する">
   </form>
