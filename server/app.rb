@@ -34,26 +34,27 @@ end
 
 post '/api/v1/users/new' do
   baseUrl = 'https://becky-484f7.firebaseapp.com/profile/'
-  image_url = CloudinaryHelper.upload(params[:file][:tempfile])
-  binding.pry
-  @user = User.new(name: params[:name], nick_name: params[:nick_name], img: image_url, comment: params[:comment])
+  request.body.rewind
+  params = JSON.parse request.body.read
+  image_url = CloudinaryHelper.upload(params['img'])
+  @user = User.new(name: params['name'], nick_name: params['nickname'], img: image_url, comment: params['comment'])
   if @user.save
     url = baseUrl + @user.id.to_s
     qr = make_qr(url)
     qr_url = CloudinaryHelper.upload(qr.path)
     File.delete(qr.path)
     @user.update(qr: qr_url)
-    if params[:links].nil?
+    if params['links'].nil?
       links = [
         {id: 1 , url: 'https://twitter.com/niza_lit'},
         {id: 2 , url: 'https://twitter.com/niza_lit'},
         {id: 3 , url: 'https://twitter.com/niza_lit'}
       ]
     else
-      links = params[:links]
+      links = params['links']
     end
     links.each do |link|
-      @user.links.create(media_platform_id: link[:id], url: link[:url])
+      @user.links.create(media_platform_id: link['id'], url: link['url'])
     end
   end
   content_type :json
