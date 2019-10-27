@@ -10,11 +10,9 @@
                     img(:src="`/icon/media/${link.media_platform.name}_black.svg`" width="40px" hegiht="40px")
             div.Profile_Comment
                 span {{userInfo.comment}}
-            button(@click="set") sett
 </template>
 
 <script>
-import { mapActions } from 'vuex'
 
 export default {
     name:'Profile',
@@ -42,13 +40,6 @@ export default {
             this.userInfo = res
         })
 
-    },
-    methods: {
-        ...mapActions('user', ['setUserId']),
-        set() {
-            console.log(this.userInfo)
-            this.setUserId(this.userInfo.id)
-        }
     },
 }
 </script>
