@@ -35,7 +35,7 @@ end
 post '/api/v1/users/new' do
   baseUrl = 'https://becky-484f7.firebaseapp.com/profile/'
   image_url = CloudinaryHelper.upload(params[:file][:tempfile])
-  puts params
+  binding.pry
   @user = User.new(name: params[:name], nick_name: params[:nick_name], img: image_url, comment: params[:comment])
   if @user.save
     url = baseUrl + @user.id.to_s
