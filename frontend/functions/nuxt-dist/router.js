@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
+const _4e060fc9 = () => interopDefault(import('../nuxt-app/pages/share.vue' /* webpackChunkName: "pages/share" */))
 const _3911577e = () => interopDefault(import('../nuxt-app/pages/profile/_id/index.vue' /* webpackChunkName: "pages/profile/_id/index" */))
 const _7c30373c = () => interopDefault(import('../nuxt-app/pages/index.vue' /* webpackChunkName: "pages/index" */))
 
@@ -16,6 +17,10 @@ export const routerOptions = {
   scrollBehavior,
 
   routes: [{
+    path: "/share",
+    component: _4e060fc9,
+    name: "share"
+  }, {
     path: "/profile/:id?",
     component: _3911577e,
     name: "profile-id"

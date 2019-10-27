@@ -16,12 +16,21 @@ module.exports = {
       publicPath: '/assets/',
     },
     plugins: [
-        '~plugins/element-ui'
+        '~plugins/element-ui',
+        '~plugins/axios.js',
+        '~/plugins/cookie-storage.js',
     ],
+    router: {
+        middleware: 'user'
+    },
     css: [
         'element-ui/lib/theme-chalk/index.css'
     ],
-    modules: ['@nuxtjs/style-resources'],
+    modules: [
+        '@nuxtjs/axios',
+        '@nuxtjs/style-resources',
+        'nuxt-clipboard2'
+    ],
     styleResources: {
         scss: [
             '~/assets/scss/variable.scss',

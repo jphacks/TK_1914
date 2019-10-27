@@ -1,13 +1,8 @@
 <template lang="pug">
-    div.ImageUploader
-        el-upload(
-            class="ImageUploader_Box"
-            action="https://jsonplaceholder.typicode.com/posts/"
-            :show-file-list="false"
-            :on-success="handleAvatarSuccess"
-            :before-upload="beforeAvatarUpload")
-            img(v-if="imageUrl" :src="imageUrl" class="ImageUploader_Avater")
-            i(v-else class="el-icon-plus ImageUploader_BoxIcon")
+    label.ImageUploader
+        div.ImageUploader_ImageContainer
+            img(:class="['ImageUploader_Image', {'_isActive': isActive}]" :src="uploadedImage")
+        input(v-show="false" type="file" v-on:change="onFileChange")
 </template>
 
 <script>
@@ -15,53 +10,49 @@ export default {
     name: 'ImageUploader',
     data() {
         return {
-            imageUrl: ''
+            uploadedImage: '/icon/user.svg',
+            isActive: false
         };
     },
     methods: {
-        handleAvatarSuccess(res, file) {
-            this.imageUrl = URL.createObjectURL(file.raw);
+        onFileChange(e) {
+            this.isActive = true
+            let files = e.target.files || e.dataTransfer.files;
+            this.createImage(files[0]);
         },
-        beforeAvatarUpload(file) {
-            const isJPG = file.type === 'image/jpeg';
-            const isLt2M = file.size / 1024 / 1024 < 2;
-        if (!isJPG) {
-            this.$message.error('Avatar picture must be JPG format!');
-        }
-        if (!isLt2M) {
-            this.$message.error('Avatar picture size can not exceed 2MB!');
-        }
-        return isJPG && isLt2M;
-      }
+        createImage(file) {
+            let reader = new FileReader();
+            reader.onload = (e) => {
+                this.uploadedImage = e.target.result;
+                this.$emit('input', e.target.result)
+            };
+            reader.readAsDataURL(file);
+        },
     }
 }
 </script>
 
 <style lang="scss">
 .ImageUploader{
-    &_Box .el-upload {
-        border: 1px dashed #d9d9d9;
+    &_ImageContainer {
+        width: 180px;
+        height: 180px;
+        border: solid 1px $gray;
         border-radius: 50%;
-        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         position: relative;
+        cursor: pointer;
         overflow: hidden;
     }
-    &_Box .el-upload:hover {
-        border-color: #409EFF;
+    &_Image {
+        width: 60px;
+        position: absolute;
+        z-index: 2;
+        &._isActive {
+            width: 100%;
+        }
     }
-    &_BoxIcon {
-        font-size: 28px;
-        color: #8c939d;
-        width: 178px;
-        height: 178px;
-        line-height: 178px;
-        text-align: center;
-    }
-    &_Avater {
-        width: 178px;
-        height: 178px;
-        display: block;
-    }
-
 }
 </style>

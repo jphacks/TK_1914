@@ -2,26 +2,52 @@
     div.Profile
         div.Profile_InfoContainer
             div.Profile_UserIcon
-                img(v-if="userInfo.img.length > 0" :src="userInfo.img")
-                el-avatar(v-else src="/ui/man.svg" :size="130")
+                el-avatar(v-if="userInfo == null" src="/icon/man.svg" :size="130")
+                img(v-else :src="userInfo.img" width="130px" hegiht="130")
             div.Profile_UserName {{userInfo.name}}
             div.Profile_MediaList
-                div(v-for="media in ['twitter', 'instagram', 'facebook']" class="Profile_MediaItem")
-                    img(:src="`/ui/icons/${media}.svg`" width="40px" hegiht="40px")
+                a(v-for="link in userInfo.links" :href="link.url" target="_blank" class="Profile_MediaItem")
+                    img(:src="`/icon/media/${link.media_platform.name}_black.svg`" width="40px" hegiht="40px")
             div.Profile_Comment
                 span {{userInfo.comment}}
+            button(@click="set") sett
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
     name:'Profile',
+    async asyncData ({ app, params }) {
+        // const userId = params.id
+        // const url = 'https://becky-server.herokuapp.com/api/v1/users/' + String(userId)
+        // const data = await app.$axios.$get(url)
+        // return { userInfo: data }
+    },
     data() {
         return {
             userInfo: {
                 img: '',
                 name: '',
-                comment: ''
+                links: [],
+                comments: []
             }
+        }
+    },
+    async mounted() {
+        const userId = this.$nuxt.$route.params.id
+        const url = 'https://becky-server.herokuapp.com/api/v1/users/' + String(userId)
+        await this.$axios.$get(url)
+        .then(res => {
+            this.userInfo = res
+        })
+
+    },
+    methods: {
+        ...mapActions('user', ['setUserId']),
+        set() {
+            console.log(this.userInfo)
+            this.setUserId(this.userInfo.id)
         }
     },
 }
@@ -33,7 +59,7 @@ export default {
         width: 100%;
         height: 100vh;
         padding: 25px;
-        background-image: url('/ui/card_bg.svg');
+        background-image: url('/icon/card_bg.svg');
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center;
@@ -51,6 +77,8 @@ export default {
         }
         &_UserIcon {
             margin-bottom: 40px;
+            border-radius: 50%;
+            overflow: hidden;
         }
         &_UserName {
             @include font-size(30);
